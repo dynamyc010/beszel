@@ -13,7 +13,7 @@ ARG TARGETOS TARGETARCH
 RUN CGO_ENABLED=0 GOGC=75 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -ldflags "-w -s" -o /agent ./cmd/agent
 
 # ? -------------------------
-FROM nvidia/cuda:12.6.3-base-ubi9
+FROM --platform=$BUILDPLATFORM nvidia/cuda:12.6.3-base-ubi9
 
 COPY --from=builder /agent /agent
 
