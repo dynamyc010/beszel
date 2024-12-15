@@ -22,8 +22,9 @@ jobs:
           # - image: henrygd/beszel-agent
           #   context: ./beszel
           #   dockerfile: ./beszel/dockerfile_Agent
-          - image: ghcr.io/dynamyc010/beszel-agent:nvidia
+          - image: ghcr.io/dynamyc010/beszel-agent
             context: ./beszel
+            prefix: nvidia
             dockerfile: ./beszel/dockerfile_Agent_NVIDIA
     permissions:
       contents: read
@@ -57,7 +58,7 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
-            type=raw,value={{sha}},enable=${{ github.ref_type != 'tag' }}
+            type=raw,value=${{matrix.prefix}}-{{sha}},enable=${{ github.ref_type != 'tag' }}
 
       # https://github.com/docker/login-action
       - name: Login to Docker Hub
