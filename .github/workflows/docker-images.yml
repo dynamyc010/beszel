@@ -3,8 +3,8 @@ name: Make docker images
 on:
   workflow_dispatch:
   push:
-    branches:
-      - master
+    # branches:
+    #   - master
   # push:
   #   tags:
   #     - 'v*'
@@ -78,7 +78,8 @@ jobs:
         with:
           context: '${{ matrix.context }}'
           file: ${{ matrix.dockerfile }}
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: linux/amd64,linux/arm64
+          # ,linux/arm/v7
           push: ${{ github.ref_type == 'tag' }}
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
